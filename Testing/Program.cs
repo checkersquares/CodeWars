@@ -1,48 +1,19 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using System.Collections.Generic;
+using Testing.RomanNumerals;
 
 Console.WriteLine("Hello, World!");
 
-var input = 0;
-while (!int.TryParse(Console.ReadLine(), out input)) { }
-var roman = Methods.ToRomanNumeral(input);
-Console.WriteLine(roman.ToString());
+RomanNumerals.WriteNumber(2);
+RomanNumerals.WriteNumber(4);
+RomanNumerals.WriteNumber(6);
+RomanNumerals.WriteNumber(26);
+RomanNumerals.WriteNumber(29);
+RomanNumerals.WriteNumber(200);
+RomanNumerals.WriteNumber(2004);
+RomanNumerals.WriteNumber(2023);
+RomanNumerals.WriteNumber(3423);
+RomanNumerals.WriteNumber(4000);
 
 Console.ReadKey();
 
-public static class Methods
-{
-    public static string ToRomanNumeral(int input)
-    {
-        var RomanNumerals = new Dictionary<int, char>
-        {
-            {1000, 'M'},
-            {500, 'D'},
-            {100, 'C'},
-            {50, 'L'},
-            {10, 'X'},
-            {5, 'V'},
-            {1, 'I'},
-        };
-        var res = "";
-        var x = 0;
-        foreach (var item in RomanNumerals)
-        {
-            var count = Math.Floor((double)input / item.Key);
-            if (count > 3)
-            {
-                res = $"{res}{item.Value}{RomanNumerals.Values.Skip(x).First()}";
-            }
-            else
-            {
-                for (var i = 0; i < count; i++)
-                {
-                    res = $"{res}{item.Value}";
-                }
-            }
-            input = input % item.Key;
-            x++;
-        }
-        return res;
-    }
-}
