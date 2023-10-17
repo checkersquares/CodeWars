@@ -8,7 +8,7 @@
         }
         public static string ToRomanNumeral(int input)
         {
-            if (input < 0 || input > 3999) return "Number out of range";
+            if (input < 0 || input >= 4000) return "Number out of range";
             var RomanNumerals = new Dictionary<int, char>
             {
                 {1000, 'M'},
@@ -20,23 +20,26 @@
                 {1, 'I'},
             };
             var res = "";
-            var x = 0;
-            foreach (var item in RomanNumerals)
+            for (int i = 0; i <= RomanNumerals.Count; i++)
             {
-                var count = Math.Floor((double)input / item.Key);
-                if (count % 5 == 4)
+                var current = RomanNumerals.Skip(i).FirstOrDefault();
+                var lower = RomanNumerals.Skip(i+1).FirstOrDefault();
+
+                var number = Math.Floor(input / (double)current.Key);
+
+                if (number == 0) { break; }
+                var temp = number;
+                for (int x = 0; x < temp || x < 3; x++)
                 {
-                    res = $"{res}{item.Value}{RomanNumerals.Values.Skip(x-1).First()}";
+                    res += current.Value;
+                    number--;
                 }
-                else
+                if (number > 0)
                 {
-                    for (var i = 0; i < count; i++)
-                    {
-                        res = $"{res}{item.Value}";
-                    }
+
                 }
-                input = input % item.Key;
-                x++;
+
+                input = (int)(input % Math.Pow(10, i));
             }
             return res;
         }
