@@ -1,6 +1,5 @@
 ﻿// See https://aka.ms/new-console-template for more information
-using System.Collections.Generic;
-using Testing.RomanNumerals;
+using RomanNumeralConverter.RomanNumerals;
 
 Console.WriteLine("Hello, World!");
 

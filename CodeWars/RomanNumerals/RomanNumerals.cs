@@ -1,12 +1,12 @@
-﻿namespace Testing.RomanNumerals
+﻿namespace RomanNumeralConverter.RomanNumerals
 {
     public static class RomanNumerals
     {
         public static void WriteNumber(int input)
         {
-            Console.WriteLine($"The number {input} is {ToRomanNumeral(input)} as a Roman Numeral.");
+            Console.WriteLine($"The number {input} is {input.ToRomanNumeral()} as a Roman Numeral.");
         }
-        public static string ToRomanNumeral(int input)
+        public static string ToRomanNumeral(this int input)
         {
             if (input < 0 || input >= 4000) return "Number out of range";
             var RomanNumerals = new Dictionary<int, char>
