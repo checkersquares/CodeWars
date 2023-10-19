@@ -20,26 +20,38 @@
                 {1, 'I'},
             };
             var res = "";
-            for (int i = 0; i <= RomanNumerals.Count; i++)
+            var length = input.ToString().Length;
+            for (int i = length; i > 0; i--)
             {
-                var current = RomanNumerals.Skip(i).FirstOrDefault();
-                var lower = RomanNumerals.Skip(i+1).FirstOrDefault();
+                var decimalPlace = (int)Math.Pow(10, i-1);
 
-                var number = Math.Floor(input / (double)current.Key);
-
-                if (number == 0) { break; }
-                var temp = number;
-                for (int x = 0; x < temp || x < 3; x++)
+                var number = Math.Floor((double)input / decimalPlace);
+                if (number == 0)
+                    continue;
+                else if (number > 0 && number < 4)
                 {
-                    res += current.Value;
-                    number--;
+                    for (int x = 0; x < number; x++)
+                    {
+                        res = $"{res}{RomanNumerals[decimalPlace]}";
+                    }
                 }
-                if (number > 0)
+                else if (number == 4)
                 {
-
+                    res = $"{res}{RomanNumerals[decimalPlace]}{RomanNumerals[decimalPlace * 5]}";
                 }
-
-                input = (int)(input % Math.Pow(10, i));
+                else if (number > 4 && number < 9)
+                {
+                    res = $"{res}{RomanNumerals[decimalPlace*5]}";
+                    for (int x = 0; x < number % 5; x++)
+                    {
+                        res = $"{res}{RomanNumerals[decimalPlace]}";
+                    }
+                }
+                else if (number == 9)
+                {
+                    res = $"{res}{RomanNumerals[decimalPlace]}{RomanNumerals[decimalPlace*10]}";
+                }
+                input = (input % decimalPlace);
             }
             return res;
         }
