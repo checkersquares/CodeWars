@@ -8,14 +8,12 @@ namespace PersistentBugger
 {
     public static class PersistenceCalculator
     {
-        public static int GetPersistence(long n, bool showWorkingOut = true)
+        public static int GetPersistence(long n)
         {
             var res = 0;
-            Debug($"Number entered: {n}", showWorkingOut);
             while (n.ToString().Length > 1)
             {
                 n = MultiplyDigits(n);
-                Debug($"After {res+1} cycles: {n}", showWorkingOut);
                 res++;
             }
             return res;
@@ -32,11 +30,6 @@ namespace PersistentBugger
         private static int[] ToIntArray(this long n)
         {
             return n.ToString().Select(d => int.Parse(d.ToString())).ToArray();
-        }
-        private static void Debug(string msg, bool on)
-        {
-            if (on)
-                Console.WriteLine(msg);
         }
     }
 }
